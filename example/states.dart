@@ -7,14 +7,13 @@ class Pending extends State {
   String key = 'pending';
 
   @override
-  State on(Event event) {
+  String on(Event event) {
     if (event is RejectEvent) {
-      return Rejected();
-    }
-    if (event is ResolveEvent) {
-      return Resolved();
+      return 'rejected';
+    } else if (event is ResolveEvent) {
+      return 'resolved';
     } else {
-      return this;
+      return key;
     }
   }
 }
@@ -24,8 +23,8 @@ class Resolved extends State {
   String key = 'resolved';
 
   @override
-  State on(Event event) {
-    return this;
+  String on(Event event) {
+    return key;
   }
 }
 
@@ -34,7 +33,11 @@ class Rejected extends State {
   String key = 'rejected';
 
   @override
-  State on(Event event) {
-    return this;
+  String on(Event event) {
+    if (event is RetryEvent) {
+      return 'pending';
+    } else {
+      return key;
+    }
   }
 }

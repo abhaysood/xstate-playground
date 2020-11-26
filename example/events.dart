@@ -9,3 +9,8 @@ class ResolveEvent extends Event {
   @override
   String value = 'RESOLVE';
 }
+
+class RetryEvent extends Event {
+  @override
+  String value = 'RETRY';
+}
